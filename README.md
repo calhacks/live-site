@@ -4,7 +4,7 @@ WIP migration & refactor of the previous [Cal Hacks live site](https://github.co
 
 ## Development
 
-If this **isn't** your first time, [click here](#run-locally)!
+If this **isn't** your first time, [click here](#run)!
 
 ### First Time?
 
