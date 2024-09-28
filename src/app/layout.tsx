@@ -4,8 +4,7 @@ import "./globals.css";
 import Header from "@/components/header/Header";
 import HeaderLogo from "@/components/header/HeaderLogo";
 import HeaderLinks from "@/components/header/HeaderLinks";
-import { HEADER_LINK_DATA } from "@/constants/header";
-import HeaderLink, { HeaderLinkProps } from "@/components/header/HeaderLink";
+import { ThemeProvider } from "next-themes";
 
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
@@ -32,15 +31,13 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<Header>
-					<HeaderLogo />
-					<HeaderLinks>
-						{HEADER_LINK_DATA.map((data: HeaderLinkProps) => (
-							<HeaderLink {...data} />
-						))}
-					</HeaderLinks>
-				</Header>
-				{children}
+				<ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+					<Header>
+						<HeaderLogo />
+						<HeaderLinks />
+					</Header>
+					{children}
+				</ThemeProvider>
 			</body>
 		</html>
 	);
