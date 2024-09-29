@@ -9,6 +9,21 @@ const config: Config = {
 	],
 	theme: {
 		extend: {
+			keyframes: {
+				fadeInAndOut: {
+					"0%": { opacity: "0" },
+					"25%": { opacity: "1" },
+					"75%": { opacity: "1" },
+					"100%": { opacity: "0" },
+				},
+			},
+			animation: {
+				fadeInAndOut: "fadeInAndOut 3s ease-in-out forwards",
+			},
+			fontFamily: {
+				ppmondwest: ["PPMondwest", "sans-serif"],
+				ppneuebit: ["PPNeueBit", "mono"],
+			},
 			colors: {
 				background: "hsl(var(--background))",
 				foreground: "hsl(var(--foreground))",

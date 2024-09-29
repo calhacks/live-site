@@ -6,22 +6,32 @@ export interface LinkData {
 export const HEADER_LINK_DATA: LinkData[] = [
 	{
 		title: "Devpost",
-		href: "/",
+		href: "/devpost",
 	},
 	{
 		title: "FAQ",
-		href: "/",
+		href: "/faq",
 	},
 	{
 		title: "Prizes",
-		href: "/",
+		href: "/prizes",
 	},
 	{
 		title: "Resources",
-		href: "/",
+		href: "/resources",
 	},
 	{
 		title: "Maps",
-		href: "/",
+		href: "/maps",
 	},
 ];
+
+export const [TEST_COUNTDOWN_START_TIMESTAMP, TEST_COUNTDOWN_END_TIMESTAMP]: [EpochTimeStamp, EpochTimeStamp] = [
+	Date.now() + 5 * 1_000,
+	Date.now() + 10 * 1_000,
+];
+
+// export const [COUNTDOWN_START_TIMESTAMP, COUNTDOWN_END_TIMESTAMP]: [EpochTimeStamp, EpochTimeStamp] = [
+// 	Date.UTC(2024, 10, 18, 15),
+// 	Date.UTC(2024, 10, 20, 11),
+// ];

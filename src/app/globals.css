@@ -76,3 +76,18 @@ body {
 		@apply bg-background text-foreground;
 	}
 }
+
+@layer base {
+	@font-face {
+		font-family: "PPMondwest";
+		src: url("/fonts/PPMondwest-Regular.otf") format("opentype");
+		font-weight: normal;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: "PPNeueBit";
+		src: url("/fonts/PPNeueBit-Bold.otf") format("opentype");
+		font-weight: bold;
+		font-style: normal;
+	}
+}
