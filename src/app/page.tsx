@@ -3,8 +3,8 @@
 import Countdown from "@/components/countdown/Countdown";
 import TwinkleStars from "@/components/twinkle/TwinkleStars";
 import {
-	COUNTDOWN_END_TIMESTAMP,
-	COUNTDOWN_START_TIMESTAMP,
+	// COUNTDOWN_END_TIMESTAMP,
+	// COUNTDOWN_START_TIMESTAMP,
 	TEST_COUNTDOWN_END_TIMESTAMP,
 	TEST_COUNTDOWN_START_TIMESTAMP,
 } from "@/constants/header";

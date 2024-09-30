@@ -1,5 +1,3 @@
-export interface MapProps {}
-
-export default function Map(props: MapProps): React.ReactNode {
+export default function Map(): React.ReactNode {
 	return <></>;
 }

@@ -1,5 +1,3 @@
-export interface ResourcesProps {}
-
-export default function Resources(props: ResourcesProps): React.ReactNode {
+export default function Resources(): React.ReactNode {
 	return <></>;
 }
