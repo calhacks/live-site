@@ -36,7 +36,7 @@ export default function RootLayout({
 		 */
 		<html lang="en" suppressHydrationWarning>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+				<ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
 					<Header>
 						<HeaderLogo />
 						<HeaderLinks />
