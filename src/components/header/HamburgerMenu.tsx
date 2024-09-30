@@ -3,7 +3,6 @@
 import { MenuIcon, XIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
-import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu";
 import React from "react";
 
 export interface HamburgerMenuProps {
