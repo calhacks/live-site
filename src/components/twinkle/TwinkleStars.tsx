@@ -66,13 +66,13 @@ export default function TwinkleStars(props: TwinkleStarsProps): React.ReactNode 
 	useEffect(() => {
 		function updateStars() {
 			const starsAmount: number = 1 + Math.floor(Math.random() * props.maximumStars);
-			setStars(
-				createStars(
-					starsAmount,
-					resolution?.width ?? window.innerWidth,
-					resolution?.height ?? window.innerHeight,
-				),
+			const newStars: Star[] = createStars(
+				starsAmount,
+				resolution?.width ?? window.innerWidth,
+				resolution?.height ?? window.innerHeight,
 			);
+			setStars(newStars);
+
 			setTimeout(updateStars, props.twinkleLengthMilliseconds);
 		}
 		updateStars();

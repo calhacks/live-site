@@ -57,16 +57,7 @@ export default function Countdown(props: Readonly<CountdownProps>): React.ReactN
 	const [formattedCountdown, setFormattedCountdown] = useState<string>();
 
 	useEffect(() => {
-		// Immediate initialization
-		setCurrentTime(Date.now());
-		setCountdownTime(correctCountdown(currentTime ?? Date.now(), countdownStart, countdownEnd));
-
-		setTitle(countdownTitle(currentTime ?? Date.now(), countdownStart, countdownEnd));
-		setFormattedCountdown(
-			formatTimestamp(countdownTime ?? correctCountdown(Date.now(), countdownStart, countdownEnd)),
-		);
-
-		const updateTimestampsInterval = setInterval(() => {
+		function updateTimestamps() {
 			setCurrentTime(Date.now());
 			setCountdownTime(correctCountdown(currentTime ?? Date.now(), countdownStart, countdownEnd));
 
@@ -74,19 +65,18 @@ export default function Countdown(props: Readonly<CountdownProps>): React.ReactN
 			setFormattedCountdown(
 				formatTimestamp(countdownTime ?? correctCountdown(Date.now(), countdownStart, countdownEnd)),
 			);
-		}, 1_000);
 
-		return () => {
-			clearInterval(updateTimestampsInterval);
-		};
+			setTimeout(updateTimestamps, 1_000);
+		}
+		updateTimestamps();
 	}, []);
 
 	return (
 		<div className="grid h-full w-full grid-cols-1 grid-rows-3">
-			<div className="font-ppmondwest flex items-end justify-center text-xl sm:text-3xl">
+			<div className="flex items-end justify-center font-ppmondwest text-xl sm:text-3xl">
 				<span className="backdrop-blur-sm">{title}</span>
 			</div>
-			<div className="font-ppneuebit grid place-items-center text-8xl sm:text-9xl">
+			<div className="grid place-items-center font-ppneuebit text-8xl sm:text-9xl">
 				<span className="backdrop-blur-sm">{formattedCountdown}</span>
 			</div>
 		</div>
