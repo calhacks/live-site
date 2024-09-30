@@ -8,21 +8,32 @@ import { SheetClose } from "../ui/sheet";
 
 const createLinks = ({ isMobile }: { isMobile: boolean }) => {
 	return HEADER_LINK_DATA.map(({ title, href, openInNewWindow }: LinkData) => {
-		const linkContent = (
-			<NavigationMenuLink className="sm:group rounded-md font-ppmondwest text-2xl font-extrabold uppercase text-gray-100 transition-colors hover:text-accent-foreground focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 sm:inline-flex sm:px-2 sm:py-2 sm:text-lg sm:font-normal sm:capitalize sm:text-gray-400">
+		const link = (
+			<Link
+				href={href}
+				className="sm:group rounded-md font-ppmondwest text-2xl font-extrabold uppercase text-gray-100 transition-colors hover:text-accent-foreground focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 sm:inline-flex sm:px-2 sm:py-2 sm:text-lg sm:font-normal sm:capitalize sm:text-gray-400"
+				{...(openInNewWindow ? { rel: "noopener noreferrer", target: "_blank" } : {})}
+			>
 				{title}
-			</NavigationMenuLink>
+			</Link>
 		);
+
+		if (isMobile) {
+			return (
+				<SheetClose asChild key={title}>
+					{link}
+				</SheetClose>
+			);
+		}
 
 		return (
 			<Link
 				key={title}
 				href={href}
-				passHref
-				legacyBehavior
+				className="sm:group rounded-md font-ppmondwest text-2xl font-extrabold uppercase text-gray-100 transition-colors hover:text-accent-foreground focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 sm:inline-flex sm:px-2 sm:py-2 sm:text-lg sm:font-normal sm:capitalize sm:text-gray-400"
 				{...(openInNewWindow ? { rel: "noopener noreferrer", target: "_blank" } : {})}
 			>
-				{isMobile ? <SheetClose asChild>{linkContent}</SheetClose> : linkContent}
+				{title}
 			</Link>
 		);
 	});

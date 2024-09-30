@@ -18,10 +18,10 @@ export const HEADER_LINK_DATA: LinkData[] = [
 		title: "FAQ",
 		href: "/faq",
 	},
-	// {
-	// 	title: "Prizes",
-	// 	href: "/prizes",
-	// },
+	{
+		title: "Prizes",
+		href: "/prizes",
+	},
 	{
 		title: "Resources",
 		href: "/resources",

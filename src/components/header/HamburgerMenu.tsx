@@ -2,7 +2,7 @@
 
 import { MenuIcon, XIcon } from "lucide-react";
 import { Button } from "../ui/button";
-import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
 import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu";
 import React from "react";
 
@@ -19,20 +19,21 @@ export default function HamburgerMenu(props: HamburgerMenuProps): React.ReactNod
 					<MenuIcon className="h-6 w-6" />
 				</Button>
 			</SheetTrigger>
-			<SheetContent side="right" className="w-full">
-				<SheetClose>
-					<Button variant="ghost" size="icon">
-						<XIcon className="h-6 w-6" />
-					</Button>
-				</SheetClose>
-				<NavigationMenu
-					className="mt-20 flex h-screen max-w-full items-start justify-center"
-					orientation="vertical"
-				>
-					<NavigationMenuList className="flex w-full flex-col items-center justify-start gap-y-6">
-						{props.children}
-					</NavigationMenuList>
-				</NavigationMenu>
+			<SheetContent side="right" className="h-full w-full">
+				<SheetHeader className="h-full w-full">
+					<SheetTitle></SheetTitle>
+					<SheetDescription></SheetDescription>
+					<SheetClose asChild>
+						<Button variant="ghost" size="icon">
+							<XIcon className="h-6 w-6" />
+						</Button>
+					</SheetClose>
+					<section className="flex h-screen max-w-full items-start justify-center">
+						<nav className="mt-20 flex w-full flex-col items-center justify-start gap-y-6">
+							{props.children}
+						</nav>
+					</section>
+				</SheetHeader>
 			</SheetContent>
 		</Sheet>
 	);
