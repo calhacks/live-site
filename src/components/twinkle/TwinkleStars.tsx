@@ -6,7 +6,6 @@ import BlueStar from "@/assets/images/stars/blue-star.png";
 import FullBlueStar from "@/assets/images/stars/full-blue-star.png";
 import GreenStar from "@/assets/images/stars/green-star.png";
 import FullGreenStar from "@/assets/images/stars/full-green-star.png";
-import { useWindowDimensions } from "@/lib/utils";
 
 export const StarTypes = ["blue", "full-blue", "green", "full-green"] as const;
 
@@ -40,56 +39,43 @@ function starTypeToImageUrl(type: (typeof StarTypes)[number]): StaticImageData {
 	}
 }
 
-export interface TwinkleStarsProps<T extends number> {
+function createStars(amount: number, screenWidth: number, screenHeight: number): Star[] {
+	return Array.from({ length: amount }, () => {
+		const [x, y] = randomPosition(screenWidth, screenHeight);
+		const image: StaticImageData = starTypeToImageUrl(StarTypes[Math.floor(Math.random() * StarTypes.length)]);
+
+		return {
+			x: x.toString(),
+			y: y.toString(),
+			image,
+		};
+	});
+}
+
+export interface TwinkleStarsProps {
 	maximumStars: number;
 	twinkleLengthMilliseconds: number;
 
 	children: React.ReactNode;
 }
 
-export default function TwinkleStars<T extends number>(
-	props: React.PropsWithChildren<TwinkleStarsProps<T>>,
-): React.ReactNode {
-	const { height, width } = useWindowDimensions();
+export default function TwinkleStars(props: TwinkleStarsProps): React.ReactNode {
+	const resolution = useWindowSize();
 	const [stars, setStars] = useState<Star[]>([]);
 
 	useEffect(() => {
-		const starsAmount: number = 1 + Math.floor(Math.random() * props.maximumStars);
-
-		let newStars: Star[] = [];
-		for (let _ = 0; _ < starsAmount; ++_) {
-			const [x, y] = randomPosition(width, height);
-			const image: StaticImageData = starTypeToImageUrl(StarTypes[Math.floor(Math.random() * StarTypes.length)]);
-
-			newStars.push({
-				x: x.toString(),
-				y: y.toString(),
-				image,
-			});
-		}
-
-		setStars(newStars);
-
-		const createStarsInterval = setInterval(() => {
+		function updateStars() {
 			const starsAmount: number = 1 + Math.floor(Math.random() * props.maximumStars);
-			let newStars: Star[] = [];
-			for (let _ = 0; _ < starsAmount; ++_) {
-				const [x, y]: [number, number] = randomPosition(width, height);
-				const image: StaticImageData = starTypeToImageUrl(
-					StarTypes[Math.floor(Math.random() * StarTypes.length)],
-				);
-
-				newStars.push({
-					x: Math.floor(x).toString(),
-					y: Math.floor(y).toString(),
-					image,
-				});
-			}
-
-			setStars(newStars);
-		}, props.twinkleLengthMilliseconds);
-
-		return () => clearInterval(createStarsInterval);
+			setStars(
+				createStars(
+					starsAmount,
+					resolution?.width ?? window.innerWidth,
+					resolution?.height ?? window.innerHeight,
+				),
+			);
+			setTimeout(updateStars, props.twinkleLengthMilliseconds);
+		}
+		updateStars();
 	}, []);
 
 	return (
@@ -100,10 +86,33 @@ export default function TwinkleStars<T extends number>(
 					key={`${x}-${y}-${index}`}
 					alt={"Star"}
 					style={{ top: `${y}px`, left: `${x}px` }}
-					className="animate-fadeInAndOut absolute -z-50 w-4"
+					className="absolute -z-50 w-4 animate-fadeInAndOut"
 				/>
 			))}
 			{props.children}
 		</div>
 	);
+}
+
+/* `getWindowDimensions`, `useWindowDimensions`
+ * CREDIT: https://stackoverflow.com/a/36862446
+ */
+function useWindowSize() {
+	const [windowSize, setWindowSize] = useState<{ width: number; height: number }>();
+
+	useEffect(() => {
+		function handleResize() {
+			setWindowSize({
+				width: window.innerWidth,
+				height: window.innerHeight,
+			});
+		}
+
+		window.addEventListener("resize", handleResize);
+
+		handleResize();
+
+		return () => window.removeEventListener("resize", handleResize);
+	}, []);
+	return windowSize;
 }
