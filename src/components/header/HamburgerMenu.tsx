@@ -16,13 +16,13 @@ export default function HamburgerMenu(props: HamburgerMenuProps): React.ReactNod
 		<Sheet>
 			<SheetTrigger asChild>
 				<Button className={props.className} variant="ghost" size="icon">
-					<MenuIcon className="h-6 w-6"></MenuIcon>
+					<MenuIcon className="h-6 w-6" />
 				</Button>
 			</SheetTrigger>
 			<SheetContent side="right" className="w-full">
 				<SheetClose>
 					<Button variant="ghost" size="icon">
-						<XIcon className="h-6 w-6"></XIcon>
+						<XIcon className="h-6 w-6" />
 					</Button>
 				</SheetClose>
 				<NavigationMenu
