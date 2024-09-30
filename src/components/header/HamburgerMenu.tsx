@@ -30,9 +30,7 @@ export default function HamburgerMenu(props: HamburgerMenuProps): React.ReactNod
 					orientation="vertical"
 				>
 					<NavigationMenuList className="flex w-full flex-col items-center justify-start gap-y-6">
-						{React.Children.map(props.children, (child) => (
-							<SheetClose asChild>{child}</SheetClose>
-						))}
+						{props.children}
 					</NavigationMenuList>
 				</NavigationMenu>
 			</SheetContent>
