@@ -6,6 +6,7 @@ import BlueStar from "@/assets/images/stars/blue-star.png";
 import FullBlueStar from "@/assets/images/stars/full-blue-star.png";
 import GreenStar from "@/assets/images/stars/green-star.png";
 import FullGreenStar from "@/assets/images/stars/full-green-star.png";
+import { TWINKLE_STAR_DURATION_MS } from "@/constants/header";
 
 export const StarTypes = ["blue", "full-blue", "green", "full-green"] as const;
 
@@ -54,7 +55,6 @@ function createStars(amount: number, screenWidth: number, screenHeight: number):
 
 export interface TwinkleStarsProps {
 	maximumStars: number;
-	twinkleLengthMilliseconds: number;
 
 	children: React.ReactNode;
 }
@@ -73,7 +73,7 @@ export default function TwinkleStars(props: TwinkleStarsProps): React.ReactNode 
 			);
 			setStars(newStars);
 
-			setTimeout(updateStars, props.twinkleLengthMilliseconds);
+			setTimeout(updateStars, TWINKLE_STAR_DURATION_MS);
 		}
 		updateStars();
 	}, []);

@@ -115,3 +115,5 @@ export const FAQ_DATA: FaqItem[] = [
 		response: "That's okay! Cal Hacks is open to all skill levels, from beginners to experts.",
 	},
 ];
+
+export const TWINKLE_STAR_DURATION_MS: number = 3_000;

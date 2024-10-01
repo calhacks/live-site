@@ -12,11 +12,13 @@ import {
 export default function Home() {
 	return (
 		<main className="h-screen w-screen">
-			<TwinkleStars maximumStars={5} twinkleLengthMilliseconds={3_000}>
-				<Countdown
-					countdownStart={TEST_COUNTDOWN_START_TIMESTAMP}
-					countdownEnd={TEST_COUNTDOWN_END_TIMESTAMP}
-				/>
+			<TwinkleStars maximumStars={5}>
+				<div className="grid h-full w-full place-items-center">
+					<Countdown
+						countdownStart={TEST_COUNTDOWN_START_TIMESTAMP}
+						countdownEnd={TEST_COUNTDOWN_END_TIMESTAMP}
+					/>
+				</div>
 			</TwinkleStars>
 		</main>
 	);
