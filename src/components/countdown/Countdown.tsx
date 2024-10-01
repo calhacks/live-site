@@ -76,7 +76,7 @@ export default function Countdown(props: Readonly<CountdownProps>): React.ReactN
 			<div className="flex items-end justify-center font-ppmondwest text-xl sm:text-3xl">
 				<span className="backdrop-blur-sm">{title}</span>
 			</div>
-			<div className="grid place-items-center font-ppneuebit text-8xl sm:text-9xl">
+			<div className="grid place-items-center font-ppneuebit text-[8rem] sm:text-[14rem] md:text-[16rem]">
 				<span className="backdrop-blur-sm">{formattedCountdown}</span>
 			</div>
 		</div>

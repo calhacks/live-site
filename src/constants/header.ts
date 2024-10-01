@@ -10,9 +10,8 @@ export const HEADER_LINK_DATA: LinkData[] = [
 		href: "/",
 	},
 	{
-		title: "Devpost",
-		href: "https://devpost.com/",
-		openInNewWindow: true,
+		title: "Schedule",
+		href: "/schedule",
 	},
 	{
 		title: "FAQ",
@@ -29,6 +28,11 @@ export const HEADER_LINK_DATA: LinkData[] = [
 	{
 		title: "Map",
 		href: "/map",
+	},
+	{
+		title: "Devpost",
+		href: "https://devpost.com/",
+		openInNewWindow: true,
 	},
 ];
 

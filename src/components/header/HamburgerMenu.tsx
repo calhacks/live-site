@@ -7,6 +7,7 @@ import React from "react";
 
 export interface HamburgerMenuProps {
 	children: React.ReactNode;
+
 	className?: string;
 }
 
@@ -15,20 +16,20 @@ export default function HamburgerMenu(props: HamburgerMenuProps): React.ReactNod
 		<Sheet>
 			<SheetTrigger asChild>
 				<Button className={props.className} variant="ghost" size="icon">
-					<MenuIcon className="h-6 w-6" />
+					<MenuIcon />
 				</Button>
 			</SheetTrigger>
-			<SheetContent side="right" className="h-full w-full">
+			<SheetContent side="right" className="grid h-full w-full place-items-center">
 				<SheetHeader className="h-full w-full">
-					<SheetTitle></SheetTitle>
-					<SheetDescription></SheetDescription>
+					<SheetTitle className="invisible"></SheetTitle> {/* Linter warning */}
+					<SheetDescription className="invisible"></SheetDescription> {/* Linter warning */}
 					<SheetClose asChild>
-						<Button variant="ghost" size="icon">
-							<XIcon className="h-6 w-6" />
+						<Button className="absolute" variant="ghost" size="icon">
+							<XIcon />
 						</Button>
 					</SheetClose>
-					<section className="flex h-screen max-w-full items-start justify-center">
-						<nav className="mt-20 flex w-full flex-col items-center justify-start gap-y-6">
+					<section className="flex h-full max-w-full items-start justify-center">
+						<nav className="flex h-full w-full flex-col items-center justify-center gap-y-6">
 							{props.children}
 						</nav>
 					</section>
