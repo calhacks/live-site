@@ -72,12 +72,12 @@ export default function Countdown(props: Readonly<CountdownProps>): React.ReactN
 	}, []);
 
 	return (
-		<div className="grid h-full w-full grid-cols-1 grid-rows-3">
-			<div className="flex items-end justify-center font-ppmondwest text-xl sm:text-3xl">
-				<span className="backdrop-blur-sm">{title}</span>
+		<div className="grid h-full w-full grid-cols-1 grid-rows-5">
+			<div className="row-start-2 flex items-end justify-center font-ppmondwest text-xl sm:text-3xl">
+				<span>{title}</span>
 			</div>
-			<div className="grid place-items-center font-ppneuebit text-[8rem] sm:text-[14rem] md:text-[16rem]">
-				<span className="backdrop-blur-sm">{formattedCountdown}</span>
+			<div className="row-start-3 grid place-items-center self-center font-ppneuebit text-[8rem] sm:text-[14rem] md:text-[16rem]">
+				<span>{formattedCountdown}</span>
 			</div>
 		</div>
 	);
