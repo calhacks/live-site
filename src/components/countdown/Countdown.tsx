@@ -77,7 +77,7 @@ export default function Countdown(props: Readonly<CountdownProps>): React.ReactN
 				<span>{title}</span>
 			</div>
 			<div className="h-full w-full font-ppneuebit">
-				<span className="flex h-full items-center justify-center text-[min(8rem,calc(100vh/6))] sm:text-[calc(100vh/5)] md:text-[calc(100vh/4)] lg:text-[min(30vw,calc(100vh/3))]">
+				<span className="flex h-full items-center justify-center text-[min(8rem,calc(100vh/6))] sm:text-[calc(100vh/5)] md:text-[calc(100vh/4)] lg:text-[min(35vw,calc(100vh/3))]">
 					{formattedCountdown}
 				</span>
 			</div>
