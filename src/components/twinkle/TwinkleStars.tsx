@@ -55,8 +55,6 @@ function createStars(amount: number, screenWidth: number, screenHeight: number):
 
 export interface TwinkleStarsProps {
 	maximumStars: number;
-
-	children: React.ReactNode;
 }
 
 export default function TwinkleStars(props: TwinkleStarsProps): React.ReactNode {
@@ -79,7 +77,7 @@ export default function TwinkleStars(props: TwinkleStarsProps): React.ReactNode 
 	}, []);
 
 	return (
-		<div className="relative h-full w-full">
+		<div className="absolute h-full w-full">
 			{stars.map(({ x, y, image }, index) => (
 				<Image
 					src={image}
@@ -89,7 +87,6 @@ export default function TwinkleStars(props: TwinkleStarsProps): React.ReactNode 
 					className="absolute -z-50 w-4 animate-fadeInAndOut"
 				/>
 			))}
-			{props.children}
 		</div>
 	);
 }

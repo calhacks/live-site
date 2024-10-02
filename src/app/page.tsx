@@ -11,15 +11,14 @@ import {
 
 export default function Home() {
 	return (
-		<main className="h-screen w-screen">
-			<TwinkleStars maximumStars={5}>
-				<div className="grid h-full w-full place-items-center">
-					<Countdown
-						countdownStart={TEST_COUNTDOWN_START_TIMESTAMP}
-						countdownEnd={TEST_COUNTDOWN_END_TIMESTAMP}
-					/>
-				</div>
-			</TwinkleStars>
+		<main className="h-dvh w-screen">
+			<TwinkleStars maximumStars={5} />
+			<div className="grid h-full w-full place-items-center">
+				<Countdown
+					countdownStart={TEST_COUNTDOWN_START_TIMESTAMP}
+					countdownEnd={TEST_COUNTDOWN_END_TIMESTAMP}
+				/>
+			</div>
 		</main>
 	);
 }
