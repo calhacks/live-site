@@ -12,6 +12,9 @@ const config: Config = {
 			height: {
 				header: "var(--header-height)",
 			},
+			margin: {
+				header: "var(--header-height)",
+			},
 			keyframes: {
 				fadeInAndOut: {
 					"0%": {
