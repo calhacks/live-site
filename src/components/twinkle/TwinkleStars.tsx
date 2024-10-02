@@ -77,7 +77,7 @@ export default function TwinkleStars(props: TwinkleStarsProps): React.ReactNode 
 	}, []);
 
 	return (
-		<div className="absolute h-full w-full">
+		<div className="pointer-events-none absolute h-full w-full">
 			{stars.map(({ x, y, image }, index) => (
 				<Image
 					src={image}
