@@ -32,26 +32,15 @@ export async function readSpreadsheet(spreadsheetId: string, range: string): Pro
 			return parsedSheetData.data;
 		}
 
-		console.error(
-			"ERROR: Sheet data could not be properly parsed. REFETCHING." + JSON.stringify(sheetData, null, 4),
-		);
+		logger.error(sheetData, "CACHED sheet data could not be properly parsed. REFETCHING.");
 	}
 
-	let spreadsheet;
-	try {
-		spreadsheet = await sheetsClient.spreadsheets.get({
-			auth: auth,
-			spreadsheetId: spreadsheetId,
-		});
-	} catch (error) {
-		logger.error(error);
-	}
+	const spreadsheet = await sheetsClient.spreadsheets.get({
+		auth: auth,
+		spreadsheetId: spreadsheetId,
+	});
 
-	logger.info(spreadsheet);
-
-	const masterSheet = spreadsheet!.data.sheets?.find(
-		(sheet: sheets_v4.Schema$Sheet) => sheet.properties?.index === 0,
-	);
+	const masterSheet = spreadsheet.data.sheets?.find((sheet: sheets_v4.Schema$Sheet) => sheet.properties?.index === 0);
 	if (!masterSheet) {
 		throw new Error("ERROR: Master sheet not found.");
 	}
@@ -59,8 +48,6 @@ export async function readSpreadsheet(spreadsheetId: string, range: string): Pro
 	const sheetValues = (
 		await sheetsClient.spreadsheets.values.get({ auth: auth, spreadsheetId: spreadsheetId, range: range })
 	).data.values;
-
-	logger.info(sheetValues);
 
 	const cachedSheetData: SheetData = {
 		sheetValues: sheetValues ?? [],
@@ -70,9 +57,7 @@ export async function readSpreadsheet(spreadsheetId: string, range: string): Pro
 	const parsedSheetData = sheetDataSchema.safeParse(cachedSheetData);
 	// This conditional should never evaluate to `true` as the fallback cases are valid. Only case it fails is if Google's API changes.
 	if (!parsedSheetData.success) {
-		console.error(
-			"ERROR: FETCHED sheet data could not be properly parsed." + JSON.stringify(cachedSheetData, null, 4),
-		);
+		logger.error(cachedSheetData, "FETCHED sheet data could not be properly parsed.");
 	}
 
 	spreadsheetCache.set<SheetData>(cacheKey, cachedSheetData);

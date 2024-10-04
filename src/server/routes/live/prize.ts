@@ -15,8 +15,6 @@ type Prize = z.infer<typeof prizeSchema>;
 export async function queryPrizes(): Promise<Prize[]> {
 	const { sheetValues } = await readSpreadsheet(env.SPREADSHEET_ID, "Prizes!A2:E");
 
-	logger.info(sheetValues);
-
 	return (
 		sheetValues?.reduce((accumulator: Prize[], values: SheetValues) => {
 			const category = values[0]?.toString();
