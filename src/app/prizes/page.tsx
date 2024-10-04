@@ -1,3 +1,9 @@
+"use client";
+
+import { trpc } from "@/utils/client";
+
 export default function Prizes(): React.ReactNode {
-	return <></>;
+	const getPrizes = trpc.getPrizes.useQuery();
+
+	return <div>{JSON.stringify(getPrizes.data)}</div>;
 }
