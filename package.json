@@ -19,6 +19,7 @@
 		"@trpc/server": "^11.0.0-rc.553",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
+		"danfojs": "^1.1.2",
 		"dotenv": "^16.4.5",
 		"googleapis": "^144.0.0",
 		"lucide-react": "^0.446.0",

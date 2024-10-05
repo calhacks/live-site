@@ -24,7 +24,7 @@ const spreadsheetToCacheKey = (spreadsheetId: string, range: string): string => 
 export async function readSpreadsheet(spreadsheetId: string, range: string): Promise<SheetData> {
 	const cacheKey = spreadsheetToCacheKey(spreadsheetId, range);
 
-	if (spreadsheetCache.has(cacheKey)) {
+	if (env.NODE_ENV !== "development" && spreadsheetCache.has(cacheKey)) {
 		const sheetData = spreadsheetCache.get<SheetData>(cacheKey);
 		const parsedSheetData = sheetDataSchema.safeParse(sheetData);
 
@@ -35,23 +35,12 @@ export async function readSpreadsheet(spreadsheetId: string, range: string): Pro
 		logger.error(sheetData, "CACHED sheet data could not be properly parsed. REFETCHING.");
 	}
 
-	const spreadsheet = await sheetsClient.spreadsheets.get({
-		auth: auth,
-		spreadsheetId: spreadsheetId,
-	});
-
-	const masterSheet = spreadsheet.data.sheets?.find((sheet: sheets_v4.Schema$Sheet) => sheet.properties?.index === 0);
-	if (!masterSheet) {
-		throw new Error("ERROR: Master sheet not found.");
-	}
-
 	const sheetValues = (
 		await sheetsClient.spreadsheets.values.get({ auth: auth, spreadsheetId: spreadsheetId, range: range })
 	).data.values;
 
 	const cachedSheetData: SheetData = {
 		sheetValues: sheetValues ?? [],
-		sheetMerges: masterSheet.merges ?? [],
 	};
 
 	const parsedSheetData = sheetDataSchema.safeParse(cachedSheetData);
@@ -68,20 +57,9 @@ export async function readSpreadsheet(spreadsheetId: string, range: string): Pro
 // Zod representation of `sheets_v4.Schema$ValueRange.values` interface
 export const sheetValuesSchema = z.array(z.union([z.string(), z.boolean(), z.number()]));
 
-// Zod representation of `sheets_v4.Schema$GridRange` interface
-export const gridRangeSchema = z.object({
-	endColumnIndex: z.optional(z.union([z.number(), z.null()])),
-	endRowIndex: z.optional(z.union([z.number(), z.null()])),
-	sheetId: z.optional(z.union([z.number(), z.null()])),
-	startColumnIndex: z.optional(z.union([z.number(), z.null()])),
-	startRowIndex: z.optional(z.union([z.number(), z.null()])),
-});
-
 export const sheetDataSchema = z.object({
 	sheetValues: z.optional(z.nullable(z.array(sheetValuesSchema))),
-	sheetMerges: z.array(gridRangeSchema),
 });
 
 export type SheetValues = z.infer<typeof sheetValuesSchema>;
-export type GridRange = z.infer<typeof gridRangeSchema>;
 export type SheetData = z.infer<typeof sheetDataSchema>;
