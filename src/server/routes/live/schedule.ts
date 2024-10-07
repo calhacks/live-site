@@ -1,8 +1,8 @@
-import env from "@/server/env";
+import env from "@/utils/env";
 import { readSpreadsheet, SheetValues } from "@/utils/google";
 import { z } from "zod";
 
-export default async function querySchedule() {
+export async function querySchedule(): Promise<Schedule> {
 	const { sheetValues } = await readSpreadsheet(env.SPREADSHEET_ID, "Full Schedule [PUBLIC FACING]!A1:M144");
 
 	/*

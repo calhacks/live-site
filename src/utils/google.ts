@@ -1,4 +1,4 @@
-import env from "@/server/env";
+import env from "@/utils/env";
 import { z } from "zod";
 import { google } from "googleapis";
 import NodeCache from "node-cache";

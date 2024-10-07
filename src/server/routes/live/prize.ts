@@ -1,4 +1,4 @@
-import env from "../../env";
+import env from "@/utils/env";
 import { z } from "zod";
 import { readSpreadsheet, SheetValues } from "@/utils/google";
 import logger from "@/utils/logger";
@@ -7,7 +7,7 @@ const prizeSchema = z.object({
 	category: z.string(),
 	awardedBy: z.string(),
 	prizeDescription: z.string(),
-	url: z.optional(z.string().url()),
+	url: z.optional(z.string()),
 });
 
 type Prize = z.infer<typeof prizeSchema>;
