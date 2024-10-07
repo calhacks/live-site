@@ -1,6 +1,6 @@
 import env from "@/server/env";
 import { z } from "zod";
-import { google, sheets_v4 } from "googleapis";
+import { google } from "googleapis";
 import NodeCache from "node-cache";
 import logger from "@/utils/logger";
 

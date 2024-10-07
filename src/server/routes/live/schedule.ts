@@ -1,14 +1,13 @@
 import env from "@/server/env";
 import { readSpreadsheet, SheetValues } from "@/utils/google";
-import logger from "@/utils/logger";
 
-function lastElement<K, V>(map: Map<K, V>): [K, V] | undefined {
-	let last: [K, V] | undefined = undefined;
-	for (let entry of map) {
-		last = entry;
-	}
-	return last;
-}
+// function lastElement<K, V>(map: Map<K, V>): [K, V] | undefined {
+// 	let last: [K, V] | undefined = undefined;
+// 	for (let entry of map) {
+// 		last = entry;
+// 	}
+// 	return last;
+// }
 
 function createTotalSchedule(sheetValues: SheetValues[]): Map<string, Map<string, string[]>> {
 	// Ignore the first row; which are the titles of all the columns
