@@ -4,8 +4,10 @@ import ScheduleTable from "@/components/schedule/ScheduleTable";
 
 export default function Schedule(): React.ReactNode {
 	return (
-		<div>
-			<ScheduleTable />
-		</div>
+		<main className="flex h-auto w-screen justify-center">
+			<div className="mt-header">
+				<ScheduleTable />
+			</div>
+		</main>
 	);
 }
