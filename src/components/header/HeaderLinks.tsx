@@ -6,6 +6,17 @@ import HamburgerMenu from "./HamburgerMenu";
 import Link from "next/link";
 import { SheetClose } from "../ui/sheet";
 
+export default function HeaderLinks(): React.ReactNode {
+	return (
+		<section>
+			<HamburgerMenu className="sm:hidden">{createLinks({ isMobile: true })}</HamburgerMenu>
+			<NavigationMenu className="hidden sm:block">
+				<NavigationMenuList className="mx-2">{createLinks({ isMobile: false })}</NavigationMenuList>
+			</NavigationMenu>
+		</section>
+	);
+}
+
 const createLinks = ({ isMobile }: { isMobile: boolean }) => {
 	return HEADER_LINK_DATA.map(({ title, href, openInNewWindow }: LinkData) => {
 		const link = (
@@ -38,14 +49,3 @@ const createLinks = ({ isMobile }: { isMobile: boolean }) => {
 		);
 	});
 };
-
-export default function HeaderLinks(): React.ReactNode {
-	return (
-		<section>
-			<HamburgerMenu className="sm:hidden">{createLinks({ isMobile: true })}</HamburgerMenu>
-			<NavigationMenu className="hidden sm:block">
-				<NavigationMenuList className="mx-2">{createLinks({ isMobile: false })}</NavigationMenuList>
-			</NavigationMenu>
-		</section>
-	);
-}

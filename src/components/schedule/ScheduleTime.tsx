@@ -7,7 +7,7 @@ export interface ScheduleTimeProps {
 
 export default function ScheduleTime(props: ScheduleTimeProps) {
 	return (
-		<div className="flex h-full w-24 flex-col items-center justify-start">
+		<div className="flex h-full w-20 min-w-fit flex-col items-center justify-start">
 			<Badge className="px-3 py-0.5 font-ppneuebit text-lg">{props.time}</Badge>
 			<Separator className="flex-grow" orientation="vertical" />
 		</div>
