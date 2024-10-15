@@ -2,22 +2,52 @@
 
 import { EventDetails, Schedule } from "@/server/routes/live/schedule";
 import { trpc } from "@/utils/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ScheduleTime from "./ScheduleTime";
 import ScheduleElement from "./ScheduleElement";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 export default function ScheduleTable(): React.ReactNode {
 	const getSchedule = trpc.getSchedule.useQuery();
 
-	const [currentDay] = useState<string>("Friday");
+	const [days, setDays] = useState<string[]>([]);
+	const [currentDay, setCurrentDay] = useState<string>("");
 
-	return (
-		!!getSchedule.data && (
-			<div className="grid grid-flow-row grid-cols-1 gap-y-4 sm:w-2/5">
-				<DaySchedule schedule={getSchedule.data} day={currentDay} />
-			</div>
-		)
-	);
+	useEffect(() => {
+		if (getSchedule.data) {
+			setDays(Object.keys(getSchedule.data));
+			setCurrentDay(Object.keys(getSchedule.data)[0]);
+		}
+	}, [getSchedule.data]);
+
+	if (getSchedule.data && days && currentDay) {
+		return (
+			<Tabs defaultValue={currentDay} className="flex w-4/5 flex-col items-center sm:w-3/5">
+				<TabsList className="mb-4 w-full sm:w-3/5">
+					{days.map((day: string) => (
+						<TabsTrigger
+							key={`trigger-${day}`}
+							value={day}
+							onClick={(event) => setCurrentDay(event.currentTarget.innerText)}
+							className="w-full font-ppmondwest text-sm font-semibold sm:text-base"
+						>
+							{day}
+						</TabsTrigger>
+					))}
+				</TabsList>
+				{days.map((day: string) => (
+					<TabsContent
+						key={`content-${day}`}
+						value={day}
+						className="grid w-full grid-flow-row grid-cols-1 gap-y-4"
+					>
+						<DaySchedule schedule={getSchedule.data} day={currentDay} />
+					</TabsContent>
+				))}
+			</Tabs>
+		);
+	}
+	return <></>;
 }
 
 function DaySchedule({ schedule, day }: { schedule: Schedule; day: string }): React.ReactNode {
@@ -27,7 +57,7 @@ function DaySchedule({ schedule, day }: { schedule: Schedule; day: string }): Re
 			return (
 				<div key={time} className="flex w-full justify-center gap-x-2">
 					<ScheduleTime time={time} />
-					<div className="flex min-w-full flex-col gap-y-2">
+					<div className="flex w-fit flex-col gap-y-2 sm:w-full">
 						<ScheduleElement details={events} />
 					</div>
 				</div>

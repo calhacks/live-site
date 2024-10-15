@@ -14,7 +14,7 @@ export default function Home() {
 	return (
 		<main className="w-screen">
 			<div className="w-full">
-				<div className="grid h-[90vh] w-full place-items-center overflow-hidden">
+				<div className="grid h-dvh w-full place-items-center overflow-hidden">
 					<TwinkleStars maximumStars={5} />
 					<Countdown
 						countdownStart={TEST_COUNTDOWN_START_TIMESTAMP}

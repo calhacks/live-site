@@ -12,7 +12,7 @@ export interface ScheduleElementProps {
 export default function ScheduleElement(props: ScheduleElementProps) {
 	return props.details.map(({ title, description, location, host }: EventDetails) => {
 		return (
-			<Card key={title} className={`w-60 min-w-fit ${!host ? "border-[#719697]" : "border-[#677545]"}`}>
+			<Card key={title} className={`w-60 sm:w-full ${!host ? "border-[#719697]" : "border-[#677545]"}`}>
 				<CardHeader className="p-4">
 					<Mobile>
 						<Drawer>
@@ -97,7 +97,6 @@ function DesktopDescription({ host, description }: { host?: string; description?
 
 		const { scrollHeight, clientHeight } = clampRef.current;
 
-		console.log({ difference: (2 * Math.abs(scrollHeight - clientHeight)) / (scrollHeight + clientHeight) });
 		setShouldReadMore((2 * Math.abs(scrollHeight - clientHeight)) / (scrollHeight + clientHeight) > 0.1);
 	}, []);
 
