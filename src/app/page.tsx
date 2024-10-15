@@ -1,6 +1,7 @@
 "use client";
 
 import Countdown from "@/components/countdown/Countdown";
+import ScheduleTable from "@/components/schedule/ScheduleTable";
 import TwinkleStars from "@/components/twinkle/TwinkleStars";
 import {
 	// COUNTDOWN_END_TIMESTAMP,
@@ -11,13 +12,18 @@ import {
 
 export default function Home() {
 	return (
-		<main className="h-dvh w-screen">
-			<TwinkleStars maximumStars={5} />
-			<div className="grid h-full w-full place-items-center">
-				<Countdown
-					countdownStart={TEST_COUNTDOWN_START_TIMESTAMP}
-					countdownEnd={TEST_COUNTDOWN_END_TIMESTAMP}
-				/>
+		<main className="w-screen">
+			<div className="w-full">
+				<div className="grid h-[90vh] w-full place-items-center overflow-hidden">
+					<TwinkleStars maximumStars={5} />
+					<Countdown
+						countdownStart={TEST_COUNTDOWN_START_TIMESTAMP}
+						countdownEnd={TEST_COUNTDOWN_END_TIMESTAMP}
+					/>
+				</div>
+				<div className="flex w-full justify-center">
+					<ScheduleTable />
+				</div>
 			</div>
 		</main>
 	);

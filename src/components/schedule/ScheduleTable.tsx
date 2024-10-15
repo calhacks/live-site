@@ -12,20 +12,22 @@ export default function ScheduleTable(): React.ReactNode {
 	const [currentDay] = useState<string>("Friday");
 
 	return (
-		<div className="grid grid-flow-row grid-cols-1 gap-y-4">
-			{getSchedule.data ? createDaySchedule(getSchedule.data, currentDay) : ""}
-		</div>
+		!!getSchedule.data && (
+			<div className="grid grid-flow-row grid-cols-1 gap-y-4 sm:w-2/5">
+				<DaySchedule schedule={getSchedule.data} day={currentDay} />
+			</div>
+		)
 	);
 }
 
-function createDaySchedule(schedule: Schedule, day: string): React.ReactNode {
+function DaySchedule({ schedule, day }: { schedule: Schedule; day: string }): React.ReactNode {
 	return Object.entries(schedule[day])
 		.sort(sortByTime)
 		.map(([time, events]: [string, EventDetails[]]) => {
 			return (
-				<div key={time} className="flex justify-start gap-x-2">
+				<div key={time} className="flex w-full justify-center gap-x-2">
 					<ScheduleTime time={time} />
-					<div className="flex flex-col gap-y-2">
+					<div className="flex min-w-full flex-col gap-y-2">
 						<ScheduleElement details={events} />
 					</div>
 				</div>

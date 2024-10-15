@@ -6,14 +6,6 @@ export interface LinkData {
 
 export const HEADER_LINK_DATA: LinkData[] = [
 	{
-		title: "Countdown",
-		href: "/",
-	},
-	{
-		title: "Schedule",
-		href: "/schedule",
-	},
-	{
 		title: "FAQ",
 		href: "/faq",
 	},

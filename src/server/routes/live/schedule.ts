@@ -1,4 +1,3 @@
-import Schedule from "@/app/schedule/page";
 import env from "@/utils/env";
 import { readSpreadsheet, SheetValues } from "@/utils/google";
 import { z } from "zod";
@@ -6,10 +5,6 @@ import { z } from "zod";
 export async function querySchedule(): Promise<Schedule> {
 	const { sheetValues } = await readSpreadsheet(env.SPREADSHEET_ID, "Full Schedule [PUBLIC FACING]!A1:M144");
 
-	/*
-	 * `totalSchedule` can be thought of an array for each days' schedule
-	 * e.g. `totalSchedule[0]` will be the first day's schedule, `totalSchedule[1]` will be the second day's schedule, etc.
-	 */
 	const totalSchedule: Schedule = createTotalSchedule(sheetValues ?? []);
 
 	return totalSchedule;
@@ -97,7 +92,9 @@ function parseEvent(eventString: string): EventDetails | null {
 	const titleMatch = eventString.match(titleRegex);
 	const title = titleMatch ? titleMatch[0].trim() : "";
 
-	if (!title) return null; // If no title, return null
+	if (!title) {
+		return null; // If no title, return null
+	}
 
 	// Extract description (if any)
 	const descriptionMatch = eventString.match(descriptionRegex);
@@ -120,7 +117,6 @@ function parseEvent(eventString: string): EventDetails | null {
 	const hostMatch = eventString.match(hostRegex);
 	const host = hostMatch ? hostMatch[1].trim() : undefined;
 
-	// Return structured object
 	return {
 		title,
 		description,
