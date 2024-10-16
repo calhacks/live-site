@@ -8,7 +8,7 @@ import {
 	// COUNTDOWN_START_TIMESTAMP,
 	TEST_COUNTDOWN_END_TIMESTAMP,
 	TEST_COUNTDOWN_START_TIMESTAMP,
-} from "@/constants/header";
+} from "@/constant/constant";
 
 export default function Home() {
 	return (

@@ -6,7 +6,7 @@ import BlueStar from "@/assets/images/stars/blue-star.png";
 import FullBlueStar from "@/assets/images/stars/full-blue-star.png";
 import GreenStar from "@/assets/images/stars/green-star.png";
 import FullGreenStar from "@/assets/images/stars/full-green-star.png";
-import { TWINKLE_STAR_DURATION_MS } from "@/constants/header";
+import { TWINKLE_STAR_DURATION_MS } from "@/constant/constant";
 
 export const StarTypes = ["blue", "full-blue", "green", "full-green"] as const;
 

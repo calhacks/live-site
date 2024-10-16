@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import ScheduleTime from "./ScheduleTime";
 import ScheduleElement from "./ScheduleElement";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import ScheduleFilter from "./ScheduleFilter";
+import { CHECKBOX_DATA } from "@/constant/constant";
 
 export default function ScheduleTable(): React.ReactNode {
 	const getSchedule = trpc.getSchedule.useQuery();
@@ -22,19 +24,23 @@ export default function ScheduleTable(): React.ReactNode {
 
 	if (getSchedule.data && days && currentDay) {
 		return (
-			<Tabs defaultValue={currentDay} className="flex w-4/5 flex-col items-center sm:w-3/5">
-				<TabsList className="mb-4 w-full sm:w-3/5">
-					{days.map((day: string) => (
-						<TabsTrigger
-							key={`trigger-${day}`}
-							value={day}
-							onClick={(event) => setCurrentDay(event.currentTarget.innerText)}
-							className="w-full font-ppmondwest text-sm font-semibold sm:text-base"
-						>
-							{day}
-						</TabsTrigger>
-					))}
-				</TabsList>
+			<Tabs defaultValue={currentDay} className="flex w-4/5 flex-col items-center bg-transparent sm:w-3/5">
+				<div className="grid w-full grid-cols-2 sm:grid-cols-[1fr_2fr_1fr]">
+					<ScheduleFilter checkboxes={CHECKBOX_DATA} />
+
+					<TabsList className="mb-8 w-full justify-end bg-transparent sm:w-full sm:justify-self-center">
+						{days.map((day: string) => (
+							<TabsTrigger
+								key={`trigger-${day}`}
+								value={day}
+								onClick={(event) => setCurrentDay(event.currentTarget.innerText)}
+								className="w-fit font-ppmondwest text-sm font-semibold data-[state=active]:bg-muted sm:w-full sm:text-lg"
+							>
+								{day}
+							</TabsTrigger>
+						))}
+					</TabsList>
+				</div>
 				{days.map((day: string) => (
 					<TabsContent
 						key={`content-${day}`}

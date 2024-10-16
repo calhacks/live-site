@@ -1,5 +1,5 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { FAQ_DATA, FaqItem } from "@/constants/header";
+import { FAQ_DATA, FaqItem } from "@/constant/constant";
 
 export default function Faq(): React.ReactNode {
 	return (

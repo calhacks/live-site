@@ -1,6 +1,6 @@
 "use client";
 
-import { HEADER_LINK_DATA, LinkData } from "@/constants/header";
+import { HEADER_LINK_DATA, LinkData } from "@/constant/constant";
 import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu";
 import HamburgerMenu from "./HamburgerMenu";
 import Link from "next/link";
