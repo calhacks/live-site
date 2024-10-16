@@ -7,13 +7,38 @@ import ScheduleTime from "./ScheduleTime";
 import ScheduleElement from "./ScheduleElement";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import ScheduleFilter from "./ScheduleFilter";
-import { CHECKBOX_DATA } from "@/constant/constant";
+
+export type DayScheduleFilter = (value: [string, EventDetails[]]) => EventDetails[];
+
+const CHECKBOX_DATA: { id: string; label: string; filter: DayScheduleFilter }[] = [
+	{
+		id: "main-events-filter-checkbox",
+		label: "Main Events",
+		filter: (event: [string, EventDetails[]]) => event[1].filter((event: EventDetails) => !event.host),
+	},
+	{
+		id: "workshops-events-filter-checkbox",
+		label: "Workshops",
+		filter: (event: [string, EventDetails[]]) => event[1].filter((event: EventDetails) => event.host),
+	},
+	{
+		id: "meals-events-filter-checkbox",
+		label: "Meals",
+		filter: (event: [string, EventDetails[]]) =>
+			event[1].filter((event: EventDetails) =>
+				["breakfast", "lunch", "dinner", "snack"].some((meal: string) =>
+					event.title.toLowerCase().includes(meal),
+				),
+			),
+	},
+];
 
 export default function ScheduleTable(): React.ReactNode {
 	const getSchedule = trpc.getSchedule.useQuery();
 
 	const [days, setDays] = useState<string[]>([]);
 	const [currentDay, setCurrentDay] = useState<string>("");
+	const [eventFilters, setEventFilters] = useState<DayScheduleFilter[]>([]);
 
 	useEffect(() => {
 		if (getSchedule.data) {
@@ -26,7 +51,7 @@ export default function ScheduleTable(): React.ReactNode {
 		return (
 			<Tabs defaultValue={currentDay} className="flex w-4/5 flex-col items-center bg-transparent sm:w-3/5">
 				<div className="grid w-full grid-cols-2 sm:grid-cols-[1fr_2fr_1fr]">
-					<ScheduleFilter checkboxes={CHECKBOX_DATA} />
+					<ScheduleFilter checkboxes={CHECKBOX_DATA} filters={eventFilters} setFilters={setEventFilters} />
 
 					<TabsList className="mb-8 w-full justify-end bg-transparent sm:w-full sm:justify-self-center">
 						{days.map((day: string) => (
@@ -47,7 +72,7 @@ export default function ScheduleTable(): React.ReactNode {
 						value={day}
 						className="grid w-full grid-flow-row grid-cols-1 gap-y-4"
 					>
-						<DaySchedule schedule={getSchedule.data} day={currentDay} />
+						<DisplaySchedule schedule={getSchedule.data} day={currentDay} filters={eventFilters} />
 					</TabsContent>
 				))}
 			</Tabs>
@@ -56,8 +81,19 @@ export default function ScheduleTable(): React.ReactNode {
 	return <></>;
 }
 
-function DaySchedule({ schedule, day }: { schedule: Schedule; day: string }): React.ReactNode {
+function DisplaySchedule({
+	schedule,
+	day,
+	filters,
+}: {
+	schedule: Schedule;
+	day: string;
+	filters: DayScheduleFilter[];
+}): React.ReactNode {
 	return Object.entries(schedule[day])
+		.filter(([time, events]: [string, EventDetails[]]) =>
+			filters.every((filter) => filter([time, events]).length > 0),
+		)
 		.sort(sortByTime)
 		.map(([time, events]: [string, EventDetails[]]) => {
 			return (
@@ -70,6 +106,7 @@ function DaySchedule({ schedule, day }: { schedule: Schedule; day: string }): Re
 			);
 		});
 }
+
 function sortByTime(a: [string, EventDetails[]], b: [string, EventDetails[]]): number {
 	const convertTo24Hour = (time: string): string => {
 		const [timePart, period] = time.split(" ");

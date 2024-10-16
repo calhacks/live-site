@@ -109,18 +109,3 @@ export const FAQ_DATA: FaqItem[] = [
 ];
 
 export const TWINKLE_STAR_DURATION_MS: number = 3_000;
-
-export const CHECKBOX_DATA = [
-	{
-		id: "main-events-filter-checkbox",
-		label: "Main Events",
-	},
-	{
-		id: "workshops-events-filter-checkbox",
-		label: "Workshops",
-	},
-	{
-		id: "meals-events-filter-checkbox",
-		label: "Meals",
-	},
-];
