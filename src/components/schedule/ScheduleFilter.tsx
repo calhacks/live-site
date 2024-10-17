@@ -1,4 +1,4 @@
-import { SetStateAction } from "react";
+import { SetStateAction, useEffect } from "react";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
@@ -16,6 +16,10 @@ export interface ScheduleFilterProps {
 }
 
 export default function ScheduleFilter(props: ScheduleFilterProps): React.ReactNode {
+	useEffect(() => {
+		props.setFilters(() => props.checkboxes.map((checkbox) => checkbox.filter));
+	}, []);
+
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
@@ -28,7 +32,7 @@ export default function ScheduleFilter(props: ScheduleFilterProps): React.ReactN
 					<div className="flex items-center space-x-2 p-1 text-base sm:text-xl" key={id}>
 						<Checkbox
 							id={id}
-							checked={props.filters?.includes(filter)}
+							defaultChecked={true}
 							onCheckedChange={(checked) => checkedSetFilters(checked, filter, props.setFilters)}
 							className={`data-[state=checked]:text-transparent ${className}`}
 						/>

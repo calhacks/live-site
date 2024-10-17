@@ -98,7 +98,7 @@ function DisplaySchedule({
 			const filtered = events
 				.flat()
 				.filter((event: EventDetails) =>
-					filters.every((filter: DayScheduleFilter) => filter([time, [event]]).length > 0),
+					filters.some((filter: DayScheduleFilter) => filter([time, [event]]).length > 0),
 				);
 
 			if (filtered.length > 0) {
