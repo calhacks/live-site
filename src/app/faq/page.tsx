@@ -3,9 +3,9 @@ import { FAQ_DATA, FaqItem } from "@/constant/constant";
 
 export default function Faq(): React.ReactNode {
 	return (
-		<main className="h-auto w-screen">
+		<main className="h-auto w-screen pb-20 pt-header">
 			<div className="grid h-full w-full place-items-center">
-				<Accordion type="single" collapsible className="mt-header grid w-2/3 grid-cols-1 gap-2 sm:w-1/2">
+				<Accordion type="single" collapsible className="grid w-2/3 grid-cols-1 gap-2 sm:w-1/2">
 					{FAQ_DATA.map(({ question, response }: FaqItem) => {
 						return (
 							<AccordionItem value={question} key={question}>
