@@ -10,16 +10,18 @@ import ScheduleFilter from "./ScheduleFilter";
 
 export type DayScheduleFilter = (value: [string, EventDetails[]]) => EventDetails[];
 
-const CHECKBOX_DATA: { id: string; label: string; filter: DayScheduleFilter }[] = [
+const CHECKBOX_DATA: { id: string; label: string; filter: DayScheduleFilter; className: string }[] = [
 	{
 		id: "main-events-filter-checkbox",
 		label: "Main Events",
 		filter: (event: [string, EventDetails[]]) => event[1].filter((event: EventDetails) => !event.host),
+		className: "border-faded-neon-blue border-2 data-[state=checked]:bg-faded-neon-blue text-transparent",
 	},
 	{
 		id: "workshops-events-filter-checkbox",
 		label: "Workshops",
 		filter: (event: [string, EventDetails[]]) => event[1].filter((event: EventDetails) => event.host),
+		className: "border-faded-neon-green border-2 data-[state=checked]:bg-faded-neon-green text-transparent",
 	},
 	{
 		id: "meals-events-filter-checkbox",
@@ -30,6 +32,7 @@ const CHECKBOX_DATA: { id: string; label: string; filter: DayScheduleFilter }[] 
 					event.title.toLowerCase().includes(meal),
 				),
 			),
+		className: "border-faded-neon-yellow border-2 data-[state=checked]:bg-faded-neon-yellow text-transparent",
 	},
 ];
 
@@ -108,7 +111,7 @@ function DisplaySchedule({
 			return (
 				<div key={time} className="flex w-full justify-center gap-x-2">
 					<ScheduleTime time={time} />
-					<div className="flex w-fit flex-col gap-y-2 sm:w-full">
+					<div className="flex w-full flex-col gap-y-2">
 						<ScheduleElement details={events} />
 					</div>
 				</div>

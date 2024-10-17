@@ -9,13 +9,19 @@ export interface ScheduleElementProps {
 	details: EventDetails[];
 }
 
+const borderColor = (title: string, host?: string) => {
+	if (
+		["breakfast", "brunch", "lunch", "dinner", "snack"].some((meal: string) => title.toLowerCase().includes(meal))
+	) {
+		return "border-faded-neon-yellow";
+	}
+	return !host ? "border-faded-neon-blue" : "border-faded-neon-green";
+};
+
 export default function ScheduleElement(props: ScheduleElementProps) {
 	return props.details.map(({ title, description, location, host }: EventDetails) => {
 		return (
-			<Card
-				key={title}
-				className={`w-60 sm:w-full ${!host ? "border-faded-neon-blue" : "border-faded-neon-green"}`}
-			>
+			<Card key={title} className={`w-full ${borderColor(title, host)}`}>
 				<CardHeader className="p-4">
 					<Mobile>
 						<Drawer>

@@ -9,6 +9,7 @@ export interface ScheduleFilterProps {
 		id: string;
 		label: string;
 		filter: DayScheduleFilter;
+		className: string;
 	}[];
 	filters: DayScheduleFilter[];
 	setFilters: React.Dispatch<SetStateAction<DayScheduleFilter[]>>;
@@ -23,12 +24,13 @@ export default function ScheduleFilter(props: ScheduleFilterProps): React.ReactN
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent align="end" className="mt-2 w-full border-muted-foreground font-ppneuebit text-lg">
-				{props.checkboxes.map(({ id, label, filter }) => (
+				{props.checkboxes.map(({ id, label, filter, className }) => (
 					<div className="flex items-center space-x-2 p-1 text-base sm:text-xl" key={id}>
 						<Checkbox
 							id={id}
 							checked={props.filters?.includes(filter)}
 							onCheckedChange={(checked) => checkedSetFilters(checked, filter, props.setFilters)}
+							className={`data-[state=checked]:text-transparent ${className}`}
 						/>
 						<label htmlFor={id}>{label}</label>
 					</div>

@@ -99,7 +99,7 @@ const config: Config = {
 				},
 				"faded-neon-blue": "#719697",
 				"faded-neon-green": "#677545",
-				"faded-neon-yellow": "#a9a560",
+				"faded-neon-yellow": "#835d2d",
 			},
 			borderRadius: {
 				lg: "var(--radius)",
