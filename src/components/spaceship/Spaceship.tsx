@@ -40,9 +40,9 @@ export default function Spaceship({
 
 	useEffect(() => {
 		function createStarGas() {
-			starGasBounds = starGasBounds ?? [4, 7];
-			gasLengthMs = gasLengthMs ?? 200;
-			maxStarsOnScreen = maxStarsOnScreen ?? 500;
+			starGasBounds = starGasBounds ?? [5, 15];
+			gasLengthMs = gasLengthMs ?? 100;
+			maxStarsOnScreen = maxStarsOnScreen ?? 50;
 
 			if (starGas.length >= maxStarsOnScreen) {
 				return;
