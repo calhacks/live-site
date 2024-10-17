@@ -44,7 +44,7 @@ export default function ScheduleElement(props: ScheduleElementProps) {
 								<DrawerHeader className="w-11/12 gap-y-2 place-self-center">
 									<DrawerTitle className="font-ppmondwest leading-normal">{title}</DrawerTitle>
 									{!!description && (
-										<DrawerDescription className="font-ppneuebit text-lg">
+										<DrawerDescription className="break-words break-all font-ppneuebit text-lg">
 											{description}
 										</DrawerDescription>
 									)}
@@ -71,11 +71,11 @@ export default function ScheduleElement(props: ScheduleElementProps) {
 }
 
 function Mobile({ children }: { children?: React.ReactNode }): React.ReactNode {
-	return <div className="h-auto w-full sm:hidden">{children}</div>;
+	return <div className="h-auto w-full break-words break-all sm:hidden">{children}</div>;
 }
 
 function Desktop({ children }: { children?: React.ReactNode }): React.ReactNode {
-	return <div className="hidden sm:block">{children}</div>;
+	return <div className="hidden break-words break-all sm:block">{children}</div>;
 }
 
 function MobileDescription({
