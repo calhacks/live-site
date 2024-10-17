@@ -3,14 +3,14 @@ import { z } from "zod";
 import { readSpreadsheet, SheetValues } from "@/utils/google";
 import logger from "@/utils/logger";
 
-const prizeSchema = z.object({
+export const prizeSchema = z.object({
 	category: z.string(),
 	awardedBy: z.string(),
 	prizeDescription: z.string(),
 	url: z.optional(z.string()),
 });
 
-type Prize = z.infer<typeof prizeSchema>;
+export type Prize = z.infer<typeof prizeSchema>;
 
 export async function queryPrizes(): Promise<Prize[]> {
 	const { sheetValues } = await readSpreadsheet(env.SPREADSHEET_ID, "Prizes!A2:E");

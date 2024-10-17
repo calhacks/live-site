@@ -3,7 +3,7 @@ import { readSpreadsheet, SheetValues } from "@/utils/google";
 import { z } from "zod";
 
 export async function querySchedule(): Promise<Schedule> {
-	const { sheetValues } = await readSpreadsheet(env.SPREADSHEET_ID, "Full Schedule [PUBLIC FACING]!A1:M144");
+	const { sheetValues } = await readSpreadsheet(env.SPREADSHEET_ID, "Full Schedule [PUBLIC FACING]!A1:K144");
 
 	const totalSchedule: Schedule = createTotalSchedule(sheetValues ?? []);
 
@@ -22,16 +22,18 @@ function createTotalSchedule(sheetValues: SheetValues[]): Schedule {
 			const workshopsOne: string = row[3]?.toString() ?? "";
 			const workshopsTwo: string = row[4]?.toString() ?? "";
 			const workshopsThree: string = row[5]?.toString() ?? "";
-			const entertainment: string = row[6]?.toString() ?? "";
-			const meetups: string = row[7]?.toString() ?? "";
-			const teamBuilding: string = row[8]?.toString() ?? "";
-			const food: string = row[9]?.toString() ?? "";
+			const workshopsFour: string = row[6]?.toString() ?? "";
+			const entertainment: string = row[7]?.toString() ?? "";
+			const meetups: string = row[8]?.toString() ?? "";
+			const teamBuilding: string = row[9]?.toString() ?? "";
+			const food: string = row[10]?.toString() ?? "";
 
 			const allEvents = [
 				mainEvent,
 				workshopsOne,
 				workshopsTwo,
 				workshopsThree,
+				workshopsFour,
 				entertainment,
 				meetups,
 				teamBuilding,
