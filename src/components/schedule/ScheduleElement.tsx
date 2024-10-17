@@ -12,7 +12,10 @@ export interface ScheduleElementProps {
 export default function ScheduleElement(props: ScheduleElementProps) {
 	return props.details.map(({ title, description, location, host }: EventDetails) => {
 		return (
-			<Card key={title} className={`w-60 sm:w-full ${!host ? "border-[#719697]" : "border-[#677545]"}`}>
+			<Card
+				key={title}
+				className={`w-60 sm:w-full ${!host ? "border-faded-neon-blue" : "border-faded-neon-green"}`}
+			>
 				<CardHeader className="p-4">
 					<Mobile>
 						<Drawer>

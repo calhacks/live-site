@@ -97,6 +97,9 @@ const config: Config = {
 					"4": "hsl(var(--chart-4))",
 					"5": "hsl(var(--chart-5))",
 				},
+				"faded-neon-blue": "#719697",
+				"faded-neon-green": "#677545",
+				"faded-neon-yellow": "#a9a560",
 			},
 			borderRadius: {
 				lg: "var(--radius)",

@@ -26,7 +26,7 @@ const CHECKBOX_DATA: { id: string; label: string; filter: DayScheduleFilter }[] 
 		label: "Meals",
 		filter: (event: [string, EventDetails[]]) =>
 			event[1].filter((event: EventDetails) =>
-				["breakfast", "lunch", "dinner", "snack"].some((meal: string) =>
+				["breakfast", "brunch", "lunch", "dinner", "snack"].some((meal: string) =>
 					event.title.toLowerCase().includes(meal),
 				),
 			),
@@ -50,21 +50,21 @@ export default function ScheduleTable(): React.ReactNode {
 	if (getSchedule.data && days && currentDay) {
 		return (
 			<Tabs defaultValue={currentDay} className="flex w-4/5 flex-col items-center bg-transparent sm:w-3/5">
-				<div className="grid w-full grid-cols-2 sm:grid-cols-[1fr_2fr_1fr]">
-					<ScheduleFilter checkboxes={CHECKBOX_DATA} filters={eventFilters} setFilters={setEventFilters} />
-
-					<TabsList className="mb-8 w-full justify-end bg-transparent sm:w-full sm:justify-self-center">
+				<div className="grid h-full w-full grid-cols-2 sm:grid-cols-[1fr_2fr_1fr]">
+					<TabsList className="mb-8 h-fit w-full justify-start gap-x-2 bg-transparent sm:col-start-2 sm:col-end-3 sm:w-full sm:gap-x-4">
 						{days.map((day: string) => (
 							<TabsTrigger
 								key={`trigger-${day}`}
 								value={day}
 								onClick={(event) => setCurrentDay(event.currentTarget.innerText)}
-								className="w-fit font-ppmondwest text-sm font-semibold data-[state=active]:bg-muted sm:w-full sm:text-lg"
+								className="h-fit w-fit bg-transparent font-ppmondwest text-sm font-semibold hover:text-accent-foreground data-[state=active]:ring-2 data-[state=active]:ring-accent-foreground sm:w-full sm:text-lg"
 							>
 								{day}
 							</TabsTrigger>
 						))}
 					</TabsList>
+
+					<ScheduleFilter checkboxes={CHECKBOX_DATA} filters={eventFilters} setFilters={setEventFilters} />
 				</div>
 				{days.map((day: string) => (
 					<TabsContent
@@ -91,9 +91,18 @@ function DisplaySchedule({
 	filters: DayScheduleFilter[];
 }): React.ReactNode {
 	return Object.entries(schedule[day])
-		.filter(([time, events]: [string, EventDetails[]]) =>
-			filters.every((filter) => filter([time, events]).length > 0),
-		)
+		.reduce((filteredEvents: Array<[string, EventDetails[]]>, [time, events]: [string, EventDetails[]]) => {
+			const filtered = events
+				.flat()
+				.filter((event: EventDetails) =>
+					filters.every((filter: DayScheduleFilter) => filter([time, [event]]).length > 0),
+				);
+
+			if (filtered.length > 0) {
+				filteredEvents.push([time, filtered]);
+			}
+			return filteredEvents;
+		}, [])
 		.sort(sortByTime)
 		.map(([time, events]: [string, EventDetails[]]) => {
 			return (
