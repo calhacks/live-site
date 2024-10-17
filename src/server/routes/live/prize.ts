@@ -6,8 +6,9 @@ import logger from "@/utils/logger";
 export const prizeSchema = z.object({
 	category: z.string(),
 	awardedBy: z.string(),
-	prizeDescription: z.string(),
-	url: z.optional(z.string()),
+	prizeName: z.string(),
+	prizeDescription: z.optional(z.string()),
+	prizeUrl: z.optional(z.string()),
 });
 
 export type Prize = z.infer<typeof prizeSchema>;
@@ -19,14 +20,16 @@ export async function queryPrizes(): Promise<Prize[]> {
 		sheetValues?.reduce((accumulator: Prize[], values: SheetValues) => {
 			const category = values[0]?.toString();
 			const awardedBy = values[1]?.toString();
-			const prizeDescription = values[2]?.toString();
-			const url = values[3]?.toString();
+			const prizeName = values[2]?.toString();
+			const prizeDescription = values[3]?.toString();
+			const prizeUrl = values[4]?.toString();
 
 			const prize: Prize = {
 				category: category,
 				awardedBy: awardedBy,
+				prizeName: prizeName,
 				prizeDescription: prizeDescription,
-				url: url,
+				prizeUrl: prizeUrl,
 			};
 
 			const parsedPrize = prizeSchema.safeParse(prize);
