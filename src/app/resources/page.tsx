@@ -23,7 +23,7 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { trpc } from "@/utils/client";
 import Image, { StaticImageData } from "next/image";
 
-export const categoryImageMap: Record<string, StaticImageData> = {
+const categoryImageMap: Record<string, StaticImageData> = {
 	"Fetch.ai": FetchAi,
 	Google: Google,
 	Hume: Hume,
