@@ -21,7 +21,7 @@ export default function Prizes(): React.ReactNode {
 		<>
 			<main className="grid h-auto w-screen pb-10 pt-header">
 				<Spaceship className="invisible sm:visible" />
-				<div className="md:4/5 grid w-full grid-cols-1 place-items-center gap-y-4 justify-self-center sm:w-11/12 sm:grid-flow-row sm:grid-cols-3 sm:gap-y-8">
+				<div className="md:4/5 grid w-full grid-cols-1 place-items-center gap-y-4 justify-self-center sm:w-11/12 sm:grid-flow-row sm:grid-cols-2 sm:gap-y-8 lg:grid-cols-3">
 					{getPrizes.data?.map((prize: Prize) => <PrizeCard key={prize.category} {...prize} />)}
 				</div>
 			</main>
@@ -29,45 +29,44 @@ export default function Prizes(): React.ReactNode {
 	);
 }
 
-function PrizeCard({ category, awardedBy, prizeDescription }: Prize): React.ReactNode {
+function PrizeCard({ category, awardedBy, prizeName, prizeDescription, prizeUrl }: Prize): React.ReactNode {
 	return (
 		<Card className="w-4/5 bg-transparent duration-200 hover:shadow-md hover:shadow-neon-blue hover:backdrop-blur-sm sm:w-4/5">
 			<CardHeader className="p-4">
 				<Mobile>
 					<Drawer>
-						{prizeDescription ? (
-							<DrawerTrigger className="w-full text-left">
-								<CardTitle
-									className={`font-ppmondwest text-xl leading-normal ${prizeDescription ? "underline" : "no-underline"}`}
-								>
-									<span className="font-extrabold">{awardedBy}: </span>
-									<span>{category}</span>
-								</CardTitle>
-							</DrawerTrigger>
-						) : (
-							<CardTitle
-								className={`font-ppmondwest text-xl leading-normal ${prizeDescription ? "underline" : "no-underline"}`}
-							>
+						<DrawerTrigger className="w-full text-left">
+							<CardTitle className="font-ppmondwest text-xl leading-normal underline">
 								<span className="font-extrabold">{awardedBy}: </span>
 								<span>{category}</span>
 							</CardTitle>
-						)}
+						</DrawerTrigger>
 						<DrawerContent>
 							<DrawerHeader className="w-11/12 gap-y-2 place-self-center">
 								<DrawerTitle className="font-ppmondwest leading-normal">
 									<span className="font-extrabold">{awardedBy}: </span>
 									<span>{category}</span>
 								</DrawerTitle>
-								{!!prizeDescription && (
-									<DrawerDescription className="break-words break-all font-ppneuebit text-lg">
-										{prizeDescription}
-									</DrawerDescription>
-								)}
+								<DrawerDescription className="grid gap-y-2 break-words font-ppneuebit text-lg">
+									<p className="text-accent-foreground">{prizeName}</p>
+									{!!prizeDescription && prizeUrl ? (
+										<a
+											target="_blank"
+											rel="noopener noreferrer"
+											className="underline"
+											href={prizeUrl}
+										>
+											{prizeDescription}
+										</a>
+									) : (
+										<span>{prizeDescription}</span>
+									)}
+								</DrawerDescription>
 							</DrawerHeader>
 						</DrawerContent>
 					</Drawer>
 
-					{!!prizeDescription && <MobileDescription description={prizeDescription} />}
+					<MobileDescription prizeName={prizeName} description={prizeDescription} url={prizeUrl} />
 				</Mobile>
 
 				<Desktop>
@@ -75,7 +74,7 @@ function PrizeCard({ category, awardedBy, prizeDescription }: Prize): React.Reac
 						<span className="font-extrabold">{awardedBy}: </span>
 						<span>{category}</span>
 					</CardTitle>
-					{!!prizeDescription && <DesktopDescription description={prizeDescription} />}
+					<DesktopDescription prizeName={prizeName} description={prizeDescription} url={prizeUrl} />
 				</Desktop>
 			</CardHeader>
 		</Card>
@@ -83,22 +82,50 @@ function PrizeCard({ category, awardedBy, prizeDescription }: Prize): React.Reac
 }
 
 function Mobile({ children }: { children?: React.ReactNode }): React.ReactNode {
-	return <div className="h-auto w-full break-words break-all sm:hidden">{children}</div>;
+	return <div className="h-auto w-full break-words sm:hidden">{children}</div>;
 }
 
 function Desktop({ children }: { children?: React.ReactNode }): React.ReactNode {
 	return <div className="hidden break-words sm:block">{children}</div>;
 }
 
-function MobileDescription({ description }: { description?: string | undefined }): React.ReactNode {
+function MobileDescription({
+	prizeName,
+	description,
+	url,
+}: {
+	prizeName: string;
+	description?: string;
+	url?: string;
+}): React.ReactNode {
+	const prizeDescription =
+		description && url ? (
+			<a className="underline" href={url} target="_blank" rel="noopener noreferrer">
+				{description}
+			</a>
+		) : (
+			<span>{description}</span>
+		);
+
 	return (
 		<CardDescription className="font-ppneuebit">
-			{!!description && <span className="line-clamp-3 text-lg">{description}</span>}
+			<span className="line-clamp-3 text-lg">
+				<p className="text-accent-foreground">{prizeName}</p>
+				{prizeDescription}
+			</span>
 		</CardDescription>
 	);
 }
 
-function DesktopDescription({ description }: { description?: string }): React.ReactNode {
+function DesktopDescription({
+	prizeName,
+	description,
+	url,
+}: {
+	prizeName: string;
+	description?: string;
+	url?: string;
+}): React.ReactNode {
 	const clampRef = useRef<HTMLSpanElement>(null);
 
 	const [shouldReadMore, setShouldReadMore] = useState<boolean>(false);
@@ -114,20 +141,28 @@ function DesktopDescription({ description }: { description?: string }): React.Re
 		setShouldReadMore((2 * Math.abs(scrollHeight - clientHeight)) / (scrollHeight + clientHeight) > 0.5);
 	}, []);
 
+	const prizeDescription =
+		description && url ? (
+			<a className="underline" href={url} target="_blank" rel="noopener noreferrer">
+				{description}
+			</a>
+		) : (
+			<span>{description}</span>
+		);
+
 	return (
 		<CardDescription className="flex flex-col font-ppneuebit">
-			{!!description && (
-				<span
-					ref={clampRef}
-					className={`overflow-hidden text-xl transition-all duration-500 ease-in-out`}
-					style={{
-						maxHeight: isClamped ? "3.0em" : (clampRef.current?.scrollHeight ?? "none"),
-						opacity: isClamped ? 0.8 : 1,
-					}}
-				>
-					{description}
-				</span>
-			)}
+			<span
+				ref={clampRef}
+				className="grid gap-y-2 overflow-hidden text-xl transition-all duration-500 ease-in-out"
+				style={{
+					maxHeight: isClamped ? "3.0em" : (clampRef.current?.scrollHeight ?? "none"),
+					opacity: isClamped ? 0.8 : 1,
+				}}
+			>
+				<p className="text-accent-foreground">{prizeName}</p>
+				{prizeDescription}
+			</span>
 			{shouldReadMore && (
 				<button
 					onClick={() => setIsClamped(!isClamped)}
