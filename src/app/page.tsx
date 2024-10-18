@@ -11,6 +11,13 @@ import {
 } from "@/constant/constant";
 
 export default function Home() {
+	const scrollToSchedule = () => {
+		const scheduleSection = document.getElementById("schedule");
+		if (scheduleSection) {
+			scheduleSection.scrollIntoView({ behavior: "smooth" });
+		}
+	};
+
 	return (
 		<main className="w-screen">
 			<div className="w-full">
@@ -20,6 +27,14 @@ export default function Home() {
 						countdownStart={TEST_COUNTDOWN_START_TIMESTAMP}
 						countdownEnd={TEST_COUNTDOWN_END_TIMESTAMP}
 					/>
+					<div className="absolute bottom-4 flex items-center justify-center sm:bottom-8" id="schedule">
+						<button
+							onClick={scrollToSchedule}
+							className="animate-bounce font-ppneuebit text-lg uppercase text-white focus:outline-none"
+						>
+							Scroll to see the schedule
+						</button>
+					</div>
 				</div>
 				<div className="flex w-full justify-center">
 					<ScheduleTable />
