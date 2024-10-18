@@ -12,12 +12,10 @@ export async function queryResources(): Promise<Resource[]> {
 		sheetValues?.reduce((resources: Resource[], values: SheetValues) => {
 			const packName = values[0]?.toString();
 			const url = values[1]?.toString();
-			const imageUrl = values[2]?.toString();
 
 			const resource: Resource = {
 				name: packName,
 				url: url,
-				imageUrl: imageUrl,
 			};
 
 			const parsedResource = resourceSchema.safeParse(resource);
