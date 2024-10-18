@@ -40,7 +40,7 @@ export default function Home() {
 					<Countdown countdownStart={COUNTDOWN_START_TIMESTAMP} countdownEnd={COUNTDOWN_END_TIMESTAMP} />
 					<div
 						id="schedule"
-						className={`sm:bottom-8" absolute bottom-4 flex items-center justify-center transition-all duration-300 ${
+						className={`sm:bottom-8" absolute bottom-4 flex h-screen w-full items-end justify-center transition-all duration-300 ${
 							isButtonVisible ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
 						}`}
 					>
