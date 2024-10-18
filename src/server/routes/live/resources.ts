@@ -10,13 +10,11 @@ export async function queryResources(): Promise<Resource[]> {
 
 	return (
 		sheetValues?.reduce((resources: Resource[], values: SheetValues) => {
-			const category = values[0]?.toString();
-			const packName = values[1]?.toString();
-			const url = values[2]?.toString();
-			const imageUrl = values[3]?.toString();
+			const packName = values[0]?.toString();
+			const url = values[1]?.toString();
+			const imageUrl = values[2]?.toString();
 
 			const resource: Resource = {
-				category: category,
 				name: packName,
 				url: url,
 				imageUrl: imageUrl,
@@ -36,7 +34,6 @@ export async function queryResources(): Promise<Resource[]> {
 }
 
 export const resourceSchema = z.object({
-	category: z.optional(z.string()),
 	name: z.string(),
 	url: z.optional(z.string()),
 	imageUrl: z.optional(z.string()),

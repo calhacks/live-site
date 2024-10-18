@@ -100,7 +100,7 @@ const config: Config = {
 					"4": "hsl(var(--chart-4))",
 					"5": "hsl(var(--chart-5))",
 				},
-				"neon-gren": "#cff45e",
+				"neon-green": "#cff45e",
 				"neon-blue": "#3ddce4",
 				"faded-neon-blue": "#719697",
 				"faded-neon-green": "#677545",
