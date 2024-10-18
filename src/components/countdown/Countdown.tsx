@@ -46,11 +46,10 @@ export default function Countdown(props: Readonly<CountdownProps>): React.ReactN
 }
 
 function formatTimestamp(timestamp: EpochTimeStamp): string {
-	const [hours, minutes, seconds] = [
-		Math.floor((timestamp / (1_000 * 60 * 60)) % 24),
-		Math.floor((timestamp / (1_000 * 60)) % 60),
-		Math.floor((timestamp / 1_000) % 24),
-	];
+	const totalSeconds = Math.floor(timestamp / 1_000); // Total seconds
+	const hours = Math.floor(totalSeconds / 3600); // Total hours
+	const minutes = Math.floor((totalSeconds % 3600) / 60); // Remaining minutes
+	const seconds = totalSeconds % 60; // Remaining seconds
 
 	const formattedTime = [hours, minutes, seconds].map((time: number) => time.toString().padStart(2, "0"));
 

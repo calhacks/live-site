@@ -19,7 +19,7 @@ import Sui from "@/assets/images/sponsors/Sui.png";
 import Vapi from "@/assets/images/sponsors/Vapi.png";
 import Warp from "@/assets/images/sponsors/Warp.png";
 import Spaceship from "@/components/spaceship/Spaceship";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { trpc } from "@/utils/client";
 import Image, { StaticImageData } from "next/image";
 
