@@ -21,11 +21,11 @@ export const HEADER_LINK_DATA: LinkData[] = [
 		title: "Map",
 		href: "/map",
 	},
-	// {
-	// 	title: "Devpost",
-	// 	href: "https://devpost.com/",
-	// 	openInNewWindow: true,
-	// },
+	{
+		title: "Devpost",
+		href: "https://cal-hacks-11-0.devpost.com/",
+		openInNewWindow: true,
+	},
 ];
 
 export const [COUNTDOWN_START_TIMESTAMP, COUNTDOWN_END_TIMESTAMP]: [EpochTimeStamp, EpochTimeStamp] = [
