@@ -46,10 +46,10 @@ export default function Countdown(props: Readonly<CountdownProps>): React.ReactN
 }
 
 function formatTimestamp(timestamp: EpochTimeStamp): string {
-	const totalSeconds = Math.floor(timestamp / 1_000); // Total seconds
-	const hours = Math.floor(totalSeconds / 3600); // Total hours
-	const minutes = Math.floor((totalSeconds % 3600) / 60); // Remaining minutes
-	const seconds = totalSeconds % 60; // Remaining seconds
+	const totalSeconds = Math.floor(timestamp / 1_000);
+	const hours = Math.floor(totalSeconds / 3600);
+	const minutes = Math.floor((totalSeconds % 3600) / 60);
+	const seconds = totalSeconds % 60;
 
 	const formattedTime = [hours, minutes, seconds].map((time: number) => time.toString().padStart(2, "0"));
 
@@ -62,7 +62,7 @@ function correctCountdown(
 	countdownEnd: EpochTimeStamp,
 ): EpochTimeStamp {
 	if (currentTime < countdownStart) {
-		return countdownEnd - countdownStart;
+		return countdownStart - currentTime;
 	}
 	if (currentTime >= countdownEnd) {
 		return 0;
@@ -76,7 +76,7 @@ function countdownTitle(
 	countdownEnd: EpochTimeStamp,
 ): string {
 	if (currentTime < countdownStart) {
-		return "The hackathon is yet to begin...";
+		return "Hacking will begin in...";
 	}
 	if (currentTime >= countdownEnd) {
 		return "Thank you for joining Cal Hacks 11.0!";

@@ -46,7 +46,7 @@ export default function Home() {
 					>
 						<button
 							onClick={scrollToSchedule}
-							className="animate-bounce font-ppneuebit text-lg uppercase text-white focus:outline-none"
+							className="relative animate-bounce font-ppneuebit text-lg uppercase text-white focus:outline-none"
 						>
 							Scroll to see the schedule
 						</button>
