@@ -6,7 +6,6 @@ import HeaderLogo from "@/components/header/HeaderLogo";
 import HeaderLinks from "@/components/header/HeaderLinks";
 import { ThemeProvider } from "next-themes";
 import TRPCProvider from "@/utils/TRPCProvider";
-import Banner from "@/components/banner/Banner";
 
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
@@ -40,7 +39,6 @@ export default function RootLayout({
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				<TRPCProvider>
 					<ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
-						<Banner />
 						<Header>
 							<HeaderLogo />
 							<HeaderLinks />
