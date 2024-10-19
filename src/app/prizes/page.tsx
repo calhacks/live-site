@@ -47,19 +47,19 @@ function PrizeCard({ category, awardedBy, prizeName, prizeDescription, prizeUrl 
 									<span className="font-extrabold">{awardedBy}: </span>
 									<span>{category}</span>
 								</DrawerTitle>
-								<DrawerDescription className="w-100 grid gap-y-2 break-words break-all font-ppneuebit text-lg">
+								<DrawerDescription className="inline-block w-full break-words font-ppneuebit text-lg">
 									<p className="text-accent-foreground">{prizeName}</p>
 									{!!prizeDescription && prizeUrl ? (
 										<a
 											target="_blank"
 											rel="noopener noreferrer"
-											className="underline"
+											className="break-words underline"
 											href={prizeUrl}
 										>
 											{prizeDescription}
 										</a>
 									) : (
-										<span>{prizeDescription}</span>
+										<span className="break-words">{prizeDescription}</span>
 									)}
 								</DrawerDescription>
 							</DrawerHeader>

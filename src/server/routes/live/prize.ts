@@ -1,7 +1,6 @@
 import env from "@/utils/env";
 import { z } from "zod";
 import { readSpreadsheet, SheetValues } from "@/utils/google";
-import logger from "@/utils/logger";
 
 export const prizeSchema = z.object({
 	category: z.string(),
@@ -34,7 +33,6 @@ export async function queryPrizes(): Promise<Prize[]> {
 
 			const parsedPrize = prizeSchema.safeParse(prize);
 			if (!parsedPrize.success) {
-				logger.error(parsedPrize.data, parsedPrize.error.message);
 				return accumulator;
 			}
 
