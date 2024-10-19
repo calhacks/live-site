@@ -76,7 +76,7 @@ function createTotalSchedule(sheetValues: SheetValues[]): Schedule {
 	)[0];
 }
 
-function parseEvent(eventString: string): EventDetails | null {
+export function parseEvent(eventString: string): EventDetails | null {
 	// Remove comments (anything after @ or \)
 	const commentIndex = eventString.search(/[@\\]/);
 	if (commentIndex !== -1) {

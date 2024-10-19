@@ -10,7 +10,7 @@ export interface HeaderProps {
 
 export default function Header(props: HeaderProps): React.ReactNode {
 	const getAnnouncement = trpc.getAnnouncement.useQuery();
-	const content = getAnnouncement.data?.content;
+	const content = getAnnouncement.data;
 	const [bannerOpen, setBannerOpen] = useState<boolean>(true);
 	const [scrollY, setScrollY] = useState<number>(0);
 
@@ -38,9 +38,20 @@ export default function Header(props: HeaderProps): React.ReactNode {
 						isBannerVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
 					}`}
 				>
-					<span className="col-start-2 col-end-7 text-wrap break-words text-center text-lg font-extrabold sm:text-2xl">
-						{content}
-					</span>
+					{content.link ? (
+						<a
+							href={content.link}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="col-start-2 col-end-7 text-wrap break-words text-center text-lg font-extrabold underline sm:text-2xl"
+						>
+							{content.title}
+						</a>
+					) : (
+						<span className="col-start-2 col-end-7 text-wrap break-words text-center text-lg font-extrabold sm:text-2xl">
+							{content.title}
+						</span>
+					)}
 					<XIcon className="w-6 hover:cursor-pointer sm:w-10" onClick={() => setBannerOpen(false)} />
 				</div>
 			)}
