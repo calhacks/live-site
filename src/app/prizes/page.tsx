@@ -47,7 +47,7 @@ function PrizeCard({ category, awardedBy, prizeName, prizeDescription, prizeUrl 
 									<span className="font-extrabold">{awardedBy}: </span>
 									<span>{category}</span>
 								</DrawerTitle>
-								<DrawerDescription className="grid gap-y-2 break-words font-ppneuebit text-lg">
+								<DrawerDescription className="w-100 grid gap-y-2 break-words break-all font-ppneuebit text-lg">
 									<p className="text-accent-foreground">{prizeName}</p>
 									{!!prizeDescription && prizeUrl ? (
 										<a
@@ -154,7 +154,7 @@ function DesktopDescription({
 		<CardDescription className="flex flex-col font-ppneuebit">
 			<span
 				ref={clampRef}
-				className="grid gap-y-2 overflow-hidden text-xl transition-all duration-500 ease-in-out"
+				className="overflow-hidden break-words text-xl transition-all duration-500 ease-in-out"
 				style={{
 					maxHeight: isClamped ? "3.0em" : (clampRef.current?.scrollHeight ?? "none"),
 					opacity: isClamped ? 0.8 : 1,
