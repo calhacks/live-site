@@ -46,7 +46,7 @@ export default function ScheduleTable(): React.ReactNode {
 	useEffect(() => {
 		if (getSchedule.data) {
 			setDays(Object.keys(getSchedule.data));
-			setCurrentDay(Object.keys(getSchedule.data)[1]);
+			setCurrentDay(Object.keys(getSchedule.data)[2]);
 		}
 	}, [getSchedule.data]);
 
